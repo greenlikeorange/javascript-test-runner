@@ -11,8 +11,7 @@ import TestRunnerCodeLens from "../codelens/TestRunnerCodeLens";
 import { codeParser } from "../parser/codeParser";
 
 function getRootPath({ uri }) {
-  const fileUri = Uri.parse(uri.path);
-  const activeWorkspace = workspace.getWorkspaceFolder(fileUri);
+  const activeWorkspace = workspace.getWorkspaceFolder(uri);
 
   if (activeWorkspace) {
     return activeWorkspace.uri.path;
