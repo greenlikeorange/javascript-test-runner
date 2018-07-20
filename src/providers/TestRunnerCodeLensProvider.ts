@@ -1,10 +1,4 @@
-import {
-  CodeLens,
-  CodeLensProvider,
-  TextDocument,
-  Uri,
-  workspace
-} from "vscode";
+import { CodeLens, CodeLensProvider, TextDocument, workspace } from "vscode";
 
 import TestRunnerDebugCodeLens from "../codelens/TestDebugRunnerCodeLens";
 import TestRunnerCodeLens from "../codelens/TestRunnerCodeLens";

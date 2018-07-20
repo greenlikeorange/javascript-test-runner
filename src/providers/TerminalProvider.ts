@@ -1,24 +1,19 @@
-import { Terminal, TerminalOptions, window } from "vscode";
-
-let activeTerminal: Terminal = null;
+import { Terminal, TerminalOptions, window, WorkspaceFolder } from "vscode";
 
 export class TerminalProvider {
-  private rootPath: string;
-  private terminalOptions: TerminalOptions;
+  private activeTerminal: Terminal = null;
 
-  constructor(terminalOptions: TerminalOptions, rootPath: string) {
-    this.rootPath = rootPath;
-    this.terminalOptions = terminalOptions;
-  }
-
-  public get(): Terminal {
-    if (activeTerminal) {
-      activeTerminal.dispose();
+  public get(
+    terminalOptions: TerminalOptions,
+    rootPath: WorkspaceFolder
+  ): Terminal {
+    if (this.activeTerminal) {
+      this.activeTerminal.dispose();
     }
 
-    activeTerminal = window.createTerminal(this.terminalOptions);
-    activeTerminal.sendText(`cd ${this.rootPath}`, true);
+    this.activeTerminal = window.createTerminal(terminalOptions);
+    this.activeTerminal.sendText(`cd ${rootPath}`, true);
 
-    return activeTerminal;
+    return this.activeTerminal;
   }
 }

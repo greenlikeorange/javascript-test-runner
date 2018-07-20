@@ -1,5 +1,5 @@
 import { join } from "path";
-import { debug } from "vscode";
+import { debug, WorkspaceFolder } from "vscode";
 
 import { ITestRunnerInterface } from "../interfaces/ITestRunnerInterface";
 import { ITestRunnerOptions } from "../interfaces/ITestRunnerOptions";
@@ -20,8 +20,14 @@ export class JestTestRunner implements ITestRunnerInterface {
     this.configurationProvider = configurationProvider;
   }
 
-  public runTest(testName: string, fileName: string) {
+  public runTest(
+    rootPath: WorkspaceFolder,
+    fileName: string,
+    testName: string
+  ) {
     const additionalArguments = this.configurationProvider.additionalArguments;
+    const environmentVariables = this.configurationProvider
+      .environmentVariables;
     // We force slash instead of backslash for Windows
     const cleanedFileName = fileName.replace(/\\/g, "/");
 
@@ -29,20 +35,27 @@ export class JestTestRunner implements ITestRunnerInterface {
       this.binPath
     } ${cleanedFileName} --testNamePattern="${testName}" ${additionalArguments}`;
 
-    const terminal = this.terminalProvider.get();
+    const terminal = this.terminalProvider.get(
+      { env: environmentVariables },
+      rootPath
+    );
 
     terminal.sendText(command, true);
     terminal.show(true);
   }
 
-  public debugTest(testName: string, fileName: string) {
+  public debugTest(
+    rootPath: WorkspaceFolder,
+    fileName: string,
+    testName: string
+  ) {
     const additionalArguments = this.configurationProvider.additionalArguments;
     const environmentVariables = this.configurationProvider
       .environmentVariables;
     // We force slash instead of backslash for Windows
     const cleanedFileName = fileName.replace(/\\/g, "/");
 
-    debug.startDebugging(null, {
+    debug.startDebugging(rootPath, {
       args: [
         cleanedFileName,
         `--testNamePattern`,
