@@ -1,5 +1,4 @@
 import {
-  CancellationToken,
   CodeLens,
   CodeLensProvider,
   TextDocument,
@@ -42,8 +41,7 @@ function getCodeLens(rootPath, fileName, testName, startPosition) {
 
 export default class TestRunnerCodeLensProvider implements CodeLensProvider {
   public provideCodeLenses(
-    document: TextDocument,
-    token: CancellationToken
+    document: TextDocument
   ): CodeLens[] | Thenable<CodeLens[]> {
     const createRangeObject = ({ line }) => document.lineAt(line - 1).range;
     const rootPath = getRootPath(document);
@@ -62,10 +60,7 @@ export default class TestRunnerCodeLensProvider implements CodeLensProvider {
     );
   }
 
-  public resolveCodeLens?(
-    codeLens: CodeLens,
-    token: CancellationToken
-  ): CodeLens | Thenable<CodeLens> {
+  public resolveCodeLens?(): CodeLens | Thenable<CodeLens> {
     return;
   }
 }

@@ -1,15 +1,24 @@
 import { Terminal, TerminalOptions, window } from "vscode";
 
-export class TerminalProvider {
-  public activeTerminal: Terminal;
+let activeTerminal: Terminal = null;
 
-  public get(terminalOptions: TerminalOptions): Terminal {
-    if (this.activeTerminal) {
-      this.activeTerminal.dispose();
+export class TerminalProvider {
+  private rootPath: string;
+  private terminalOptions: TerminalOptions;
+
+  constructor(terminalOptions: TerminalOptions, rootPath: string) {
+    this.rootPath = rootPath;
+    this.terminalOptions = terminalOptions;
+  }
+
+  public get(): Terminal {
+    if (activeTerminal) {
+      activeTerminal.dispose();
     }
 
-    this.activeTerminal = window.createTerminal(terminalOptions);
+    activeTerminal = window.createTerminal(this.terminalOptions);
+    activeTerminal.sendText(`cd ${this.rootPath}`, true);
 
-    return this.activeTerminal;
+    return activeTerminal;
   }
 }
