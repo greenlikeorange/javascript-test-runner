@@ -39,3 +39,6 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
+Please be advised that any kind of contribution (code, bug report, idea ...) deserves to appear here. If you don't appear here don't hesitate to open a new ticket.
+In the other hand if you don't want to be mentionned don't hesitate to notice it to me.
