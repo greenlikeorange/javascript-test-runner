@@ -40,14 +40,16 @@
           "javascript-test-runner.additionalArgs": {
             "type": "string",
             "default": "",
-            "description": "CLI args to pass to test runner. Example : --watch"
+            "description": "CLI args to pass to test runner. Example : --watch",
+            "scope": "resource"
           },
           "javascript-test-runner.envVars": {
             "type": "object",
             "default": {
               "NODE_ENV": "test"
             },
-            "description": "Environment variables to set before running a test."
+            "description": "Environment variables to set before running a test.",
+            "scope": "resource"
           }
         }
       }
